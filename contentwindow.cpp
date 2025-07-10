@@ -32,17 +32,19 @@ public:
         for (int r : rowsToRemove) {
             QVector<QVariant> rowData;
             for (int c = 0; c < model->columnCount(); ++c) {
-                rowData << model->item(r, c)->data(Qt::EditRole);
-            }
-            backup << rowData;
+                QModelIndex idx = model->index(r, c);
+                rowData << idx.data(Qt::EditRole);
         }
+        backup << rowData;
+    }
+
     }
     void undo() override {
         for (int i = 0; i < rowsToRemove.size(); ++i) {
             int r = rowsToRemove[i];
             model->insertRow(r);
             for (int c = 0; c < backup[i].size(); ++c) {
-                model->setData(model->index(r, c), backup[i][c]);
+                model->setData(model->index(r, c), backup[i][c], Qt::EditRole);
             }
         }
     }
@@ -222,12 +224,17 @@ void ContentWindow::clear()
 // Simple tab‐delimited serialization
 void ContentWindow::write(QTextStream& out)
 {
-    for (int r = 0; r < m_model->rowCount(); ++r) {
-        QStringList row;
-        for (int c = 0; c < m_model->columnCount(); ++c) {
-            row << m_model->item(r, c)->text();
+    const int rows = m_model->rowCount();
+    const int cols = m_model->columnCount();
+
+    for (int r = 0; r < rows; ++r) {
+        QStringList rowText;
+        for (int c = 0; c < cols; ++c) {
+            QModelIndex idx = m_model->index(r, c);
+            // safe even if there's no QStandardItem
+            rowText << idx.data(Qt::EditRole).toString();
         }
-        out << row.join('\t') << '\n';
+        out << rowText.join('\t') << '\n';
     }
 }
 
