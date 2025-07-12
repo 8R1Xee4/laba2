@@ -35,6 +35,7 @@ public slots:
     void slotRedoAct();
     void slotCutAct();
     void slotPasteAct();
+    void slotCopyAct();
 
     void slotAboutAct();
 protected:
@@ -77,6 +78,7 @@ private:
     QAction* redoAct;
     QAction* cutAct;
     QAction* pasteAct;
+    QAction* copyAct;
 
     QAction* aboutAct;
 };

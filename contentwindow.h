@@ -9,9 +9,18 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QTextStream>
+#include <QHeaderView>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QApplication>
+#include <QClipboard>
+#include <QItemSelectionModel>
 
-class PositiveIntDelegate;
-class CellEditCommand;
+#include "positiveintdelegate.h"
+#include "celleditcommand.h"
+#include "loghandler.h"
+#include "addremoverows.h"
+
 class AddRowCommand;
 class RemoveRowsCommand;
 
@@ -38,7 +47,7 @@ private:
     void initialize();
     void connectSignals();
 
-    bool                      m_isModified = false;
+    bool                      m_isModified  = false;
     bool                      m_blockUndo   = false;
     QString                   m_lastOldValue;
     QStandardItemModel*       m_model       = nullptr;

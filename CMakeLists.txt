@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5...4.0)
-project(laba1 VERSION 1.0.0 LANGUAGES CXX)
+project(laba2 VERSION 1.0.0 LANGUAGES CXX)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
@@ -19,13 +19,12 @@ find_package(Qt6 COMPONENTS Widgets GUI Core REQUIRED)
 file(GLOB CPP_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
 file(GLOB UI_FILES "${CMAKE_CURRENT_SOURCE_DIR}/*.ui")
 
-add_executable(laba1 
-    WIN32
+add_executable(laba2
     ${CPP_SOURCES}
     ${UI_FILES}
 )
 
-target_link_libraries(laba1
+target_link_libraries(laba2
     Qt6::Widgets
     Qt6::Gui
     Qt6::Core
