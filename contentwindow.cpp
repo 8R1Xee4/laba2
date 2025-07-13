@@ -26,14 +26,34 @@ void ContentWindow::initialize()
     m_table->setSelectionBehavior(QAbstractItemView::SelectItems);
     m_table->setSelectionMode(QAbstractItemView::ExtendedSelection);
     m_table->setItemDelegateForColumn(2, new PositiveIntDelegate(this));
+    m_table->setContextMenuPolicy(Qt::CustomContextMenu);
 
     m_listView = new QListView(this);
     m_listView->setModel(m_proxy);
     m_listView->setModelColumn(0);
 
+    m_statusLabel = new QLabel(tr("Ready"),       this);  
+
     m_addButton   = new QPushButton(tr("Add"),    this);
     m_delButton   = new QPushButton(tr("Delete"), this);
-    m_statusLabel = new QLabel(tr("Ready"),       this);  
+
+    // use your bundled icons
+    m_addButton->setIcon(QIcon(":/icons/add-row.png"));
+    m_addButton->setText(QString());
+    m_addButton->setIconSize(QSize(24,24));
+
+    m_delButton->setIcon(QIcon(":/icons/delete-row.png"));
+    m_delButton->setText(QString());
+    m_delButton->setIconSize(QSize(24,24));
+
+    qDebug() << "[IconCheck] add.png loaded?"    << !m_addButton->icon().isNull();
+    qDebug() << "[IconCheck] delete.png loaded?" << !m_delButton->icon().isNull();
+
+    m_addButton->setIcon(QIcon(":/icons/add-row.png"));
+    m_addButton->setText(QString());
+    m_delButton->setIcon(QIcon(":/icons/delete-row.png"));
+    m_delButton->setText(QString());
+    
 
     auto topLayout = new QHBoxLayout;
     topLayout->addWidget(m_table, 3);
@@ -95,6 +115,18 @@ void ContentWindow::connectSignals()
         m_undoStack->push(new RemoveRowsCommand(m_model, rowList));
         setModified(true);
     });
+
+    connect(m_table, &QWidget::customContextMenuRequested, this, [this](const QPoint& pos){
+        QMenu menu;
+        QAction* actCopy  = menu.addAction(tr("Copy"));
+        QAction* actCut   = menu.addAction(tr("Cut"));
+        QAction* actPaste = menu.addAction(tr("Paste"));
+        QAction* chosen = menu.exec(m_table->viewport()->mapToGlobal(pos));
+        if (chosen == actCopy)  copy();
+        if (chosen == actCut)   cut();
+        if (chosen == actPaste) paste();
+    });
+
     qDebug(logInfo()) << "Content window connected";
 }
 

@@ -16,11 +16,18 @@ endif()
 
 find_package(Qt6 COMPONENTS Widgets GUI Core REQUIRED)
 
+set(RESOURCE_FILES
+    ${CMAKE_CURRENT_SOURCE_DIR}/resources.qrc
+)
+
+qt6_add_resources(GENERATED_QRC ${RESOURCE_FILES})
+
 file(GLOB CPP_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
 file(GLOB UI_FILES "${CMAKE_CURRENT_SOURCE_DIR}/*.ui")
 
 add_executable(laba2
     WIN32
+    ${GENERATED_QRC}
     ${CPP_SOURCES}
     ${UI_FILES}
 )

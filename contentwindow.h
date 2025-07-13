@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CONTENTWINDOW_H
+#define CONTENTWINDOW_H
 
 #include <QWidget>
 #include <QStandardItemModel>
@@ -15,6 +16,9 @@
 #include <QApplication>
 #include <QClipboard>
 #include <QItemSelectionModel>
+#include <QMenu>
+#include <QIcon>
+#include <QSize>
 
 #include "positiveintdelegate.h"
 #include "celleditcommand.h"
@@ -60,3 +64,5 @@ private:
     QPushButton*              m_delButton   = nullptr;
     QLabel*                   m_statusLabel = nullptr;
 };
+
+#endif // CONTENTWINDOW_H

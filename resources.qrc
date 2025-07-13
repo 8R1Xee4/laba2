@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/icons">
+    <file alias="add-row.png">icons/add-row.png</file>
+    <file alias="delete-row.png">icons/delete-row.png</file>
+  </qresource>
+</RCC>
