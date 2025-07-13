@@ -37,7 +37,6 @@ void ContentWindow::initialize()
     m_addButton   = new QPushButton(tr("Add"),    this);
     m_delButton   = new QPushButton(tr("Delete"), this);
 
-    // use your bundled icons
     m_addButton->setIcon(QIcon(":/icons/add-row.png"));
     m_addButton->setText(QString());
     m_addButton->setIconSize(QSize(24,24));
@@ -46,8 +45,15 @@ void ContentWindow::initialize()
     m_delButton->setText(QString());
     m_delButton->setIconSize(QSize(24,24));
 
-    qDebug() << "[IconCheck] add.png loaded?"    << !m_addButton->icon().isNull();
-    qDebug() << "[IconCheck] delete.png loaded?" << !m_delButton->icon().isNull();
+    if(!m_addButton->icon().isNull())
+        qDebug(logInfo()) << "add-row.png loaded.";
+    else
+        qDebug(logWarning()) << "Couldn\'t load add-row.png.";
+
+    if(!m_delButton->icon().isNull())
+        qDebug(logInfo()) << "delete-row.png loaded.";
+    else
+        qDebug(logWarning()) << "Couldn\'t load delete-row.png.";
 
     m_addButton->setIcon(QIcon(":/icons/add-row.png"));
     m_addButton->setText(QString());
@@ -73,7 +79,7 @@ void ContentWindow::initialize()
     setWindowTitle(tr("Content Window"));
 
     m_undoStack = new QUndoStack(this);
-    qDebug(logInfo()) << "Content window initialized";
+    qDebug(logInfo()) << "Content window initialized.";
 }
 
 void ContentWindow::connectSignals()
