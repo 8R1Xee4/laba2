@@ -20,6 +20,7 @@ file(GLOB CPP_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
 file(GLOB UI_FILES "${CMAKE_CURRENT_SOURCE_DIR}/*.ui")
 
 add_executable(laba2
+    WIN32
     ${CPP_SOURCES}
     ${UI_FILES}
 )
