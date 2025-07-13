@@ -175,8 +175,21 @@ void ContentWindow::paste()
     setModified(true);
 }
 
-void ContentWindow::undo() { m_undoStack->undo(); }
-void ContentWindow::redo() { m_undoStack->redo(); }
+void ContentWindow::undo()
+{
+  m_blockUndo = true;
+  m_undoStack->undo();
+  m_blockUndo = false;
+  setModified(true);
+}
+
+void ContentWindow::redo()
+{
+  m_blockUndo = true;
+  m_undoStack->redo();
+  m_blockUndo = false;
+  setModified(true);
+}
 void ContentWindow::clear()
 {
     m_model->removeRows(0, m_model->rowCount());
