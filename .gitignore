@@ -1,6 +1,7 @@
 *.log
+*.rar
+deploy.rar
 /build
 /.vscode
 /deploy
 /icons
-*.rar

@@ -51,18 +51,19 @@ private:
     void initialize();
     void connectSignals();
 
-    bool                      m_isModified  = false;
-    bool                      m_blockUndo   = false;
-    QString                   m_lastOldValue;
-    QStandardItemModel*       m_model       = nullptr;
-    QSortFilterProxyModel*    m_proxy       = nullptr;
-    QUndoStack*               m_undoStack   = nullptr;
+    QLineEdit*              m_searchEdit = nullptr;
+    bool                    m_isModified  = false;
+    bool                    m_blockUndo   = false;
+    QString                 m_lastOldValue;
+    QStandardItemModel*     m_model       = nullptr;
+    QSortFilterProxyModel*  m_proxy       = nullptr;
+    QUndoStack*             m_undoStack   = nullptr;
 
-    QTableView*               m_table       = nullptr;
-    QListView*                m_listView    = nullptr;
-    QPushButton*              m_addButton   = nullptr;
-    QPushButton*              m_delButton   = nullptr;
-    QLabel*                   m_statusLabel = nullptr;
+    QTableView*             m_table       = nullptr;
+    QListView*              m_listView    = nullptr;
+    QPushButton*            m_addButton   = nullptr;
+    QPushButton*            m_delButton   = nullptr;
+    QLabel*                 m_statusLabel = nullptr;
 };
 
 #endif // CONTENTWINDOW_H

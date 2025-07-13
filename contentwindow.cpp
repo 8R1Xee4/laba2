@@ -19,6 +19,15 @@ void ContentWindow::initialize()
     m_proxy->setSourceModel(m_model);
     m_proxy->setSortCaseSensitivity(Qt::CaseInsensitive);
 
+    m_searchEdit = new QLineEdit(this);
+    m_searchEdit->setPlaceholderText(tr("Search…"));
+
+    m_proxy->setFilterKeyColumn(-1);
+    m_proxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
+
+    connect(m_searchEdit, &QLineEdit::textChanged,
+            m_proxy, &QSortFilterProxyModel::setFilterFixedString);
+
     m_table = new QTableView(this);
     m_table->setModel(m_proxy);
     m_table->setSortingEnabled(true);
@@ -61,8 +70,12 @@ void ContentWindow::initialize()
     m_delButton->setText(QString());
     
 
+    auto tableLayout = new QVBoxLayout;
+    tableLayout->addWidget(m_searchEdit);
+    tableLayout->addWidget(m_table, 1);
+
     auto topLayout = new QHBoxLayout;
-    topLayout->addWidget(m_table, 3);
+    topLayout->addLayout(tableLayout, 3);
     topLayout->addWidget(m_listView, 2);
 
     auto bottomLayout = new QHBoxLayout;
